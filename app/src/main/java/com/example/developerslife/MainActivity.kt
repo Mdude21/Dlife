@@ -42,5 +42,6 @@ class MainActivity : AppCompatActivity() {
             tab.text = pageAdapter.getTabs()[position]
         }.attach()
 
+
     }
 }

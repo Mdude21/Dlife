@@ -1,10 +1,11 @@
 package com.example.developerslife.ui.main
 
 import android.os.Bundle
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -12,17 +13,24 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.developerslife.R
+import com.example.developerslife.databinding.ActivityMainBinding.inflate
+
 import com.example.developerslife.databinding.FragmentMainBinding
+
+
+
 
 /**
  * A placeholder fragment containing a simple view.
  */
 class PlaceholderFragment : Fragment() {
 
+//    var myFragmentView = inflate(LayoutInflater.from(context))
     private lateinit var pageViewModel: PageViewModel
     private var _binding: FragmentMainBinding? = null
+//    private val buttonPrev = myFragmentView.buttonActivityPrev
+//    private val buttonNext = myFragmentView.buttonActivityNext
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -49,6 +57,10 @@ class PlaceholderFragment : Fragment() {
         pageViewModel = ViewModelProvider(this, PageViewModelFactory(tabs)).get(PageViewModel::class.java)
 
         pageViewModel.getGif()
+
+//        buttonPrev?.setOnClickListener { pageViewModel.prev() }
+//        buttonNext?.setOnClickListener { pageViewModel.next() }
+
         binding.buttonNext.setOnClickListener { pageViewModel.next() }
         binding.buttonPrev.setOnClickListener { pageViewModel.prev() }
         pageViewModel.gif.observe(viewLifecycleOwner, {

@@ -4,10 +4,12 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.example.developerslife.Networking.GifRepository
 import com.example.developerslife.Networking.models.GifItem
+import com.example.developerslife.Networking.models.GifItems
 import com.example.developerslife.R
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.*
+import com.example.developerslife.MyApp
 import kotlin.collections.ArrayList
 
 class PageViewModel(private val tabs: Tabs) : ViewModel() {
@@ -25,7 +27,13 @@ class PageViewModel(private val tabs: Tabs) : ViewModel() {
     val gif: LiveData<GifItem>
         get() = gifLiveData
 
+    private val gifListLiveData = MutableLiveData<GifItems>()
+
+    val gifList : LiveData<GifItems>
+        get() = gifListLiveData
+
     private var list = ArrayList<GifItem>()
+//    private var list = MyApp
 
 //    private var listLiveData = MutableLiveData<ArrayList<GifItem>>()
 //
@@ -36,22 +44,24 @@ class PageViewModel(private val tabs: Tabs) : ViewModel() {
 
 
     fun next() {
-        viewModelScope.launch {
+//        viewModelScope.launch {
             index++
             if (index == list.size){
                 getGif()
                 list.add(index, gifLiveData.value!!)
+                Log.d("nastya", "index = ${index}, desc = ${list[index].description}")
             }
             else{
                 gifLiveData.postValue(list[index])
             }
-        }
+//        }
     }
 
     fun prev() {
         if (index > 0)
             index--
         gifLiveData.postValue(list[index])
+        Log.d("adel", "index = ${index}, desc = ${list[index].description}")
     }
 
     suspend fun addList(list : ArrayList<GifItem>, item: GifItem){
@@ -59,27 +69,33 @@ class PageViewModel(private val tabs: Tabs) : ViewModel() {
     }
 
     fun getGif(){
-        currentGifJob?.cancel()
+//        currentGifJob?.cancel()
 
-        currentGifJob = viewModelScope.launch {
+        viewModelScope.launch {
             runCatching {
 //                when (tabs) {
+//                    Tabs.RANDOM ->
+                    repository.getRandom()
 //                    Tabs.HOT -> {
 //                        repository.getHot(page)
 //                    }
-//                    Tabs.RANDOM -> {
-                        repository.getRandom()
+//                    Tabs.LATEST -> {
+//                        repository.getLatest(page)
 //                    }
 //                    Tabs.TOP -> {
 //                        repository.getTop(page)
 //                    }
 //                }
             }.onSuccess {
-                gifLiveData.postValue(it)
-                if (list.size == 0)
+                gifLiveData.value = it
+
+//                gifLiveData.postValue(it)
+//                gifListLiveData.postValue(it)
+                if (list.isEmpty()) {
 //                    addList(list, it)
                     list.add(it)
-                Log.d("asdasd", "345 ${it}")
+                    Log.d("azamat", "index = ${index}, desc = ${list[index].description}")
+                }
             }.onFailure {
                 gifLiveData.postValue(default)
                 Log.d("asdasd", "345 ${it}")
