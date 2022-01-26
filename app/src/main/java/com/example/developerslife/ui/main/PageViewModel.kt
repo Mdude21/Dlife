@@ -9,7 +9,6 @@ import com.example.developerslife.R
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.*
-import com.example.developerslife.MyApp
 import kotlin.collections.ArrayList
 
 class PageViewModel(private val tabs: Tabs) : ViewModel() {
@@ -42,14 +41,22 @@ class PageViewModel(private val tabs: Tabs) : ViewModel() {
 
     private var index : Int = 0
 
+    private var gifStack = Stack<GifItem>()
+
+
 
     fun next() {
 //        viewModelScope.launch {
             index++
             if (index == list.size){
+                when (tabs){
+                    Tabs.RANDOM -> {}
+                    Tabs.LATEST -> page++
+                    Tabs.TOP -> page++
+                }
                 getGif()
-                list.add(index, gifLiveData.value!!)
-                Log.d("nastya", "index = ${index}, desc = ${list[index].description}")
+//                list.add(gifLiveData.value!!)
+//                Log.d("nastya", "index = ${index}, desc = ${list[index].description}")
             }
             else{
                 gifLiveData.postValue(list[index])
@@ -69,38 +76,71 @@ class PageViewModel(private val tabs: Tabs) : ViewModel() {
     }
 
     fun getGif(){
-//        currentGifJob?.cancel()
-
-        viewModelScope.launch {
+        currentGifJob?.cancel()
+        currentGifJob = viewModelScope.launch {
             runCatching {
-//                when (tabs) {
-//                    Tabs.RANDOM ->
-                    repository.getRandom()
-//                    Tabs.HOT -> {
-//                        repository.getHot(page)
-//                    }
-//                    Tabs.LATEST -> {
-//                        repository.getLatest(page)
-//                    }
-//                    Tabs.TOP -> {
-//                        repository.getTop(page)
+                when (tabs) {
+                    Tabs.RANDOM -> {
+                        repository.getRandom()
+                    }
+                    Tabs.LATEST -> {
+                        repository.getLatest(page)
+                    }
+                    Tabs.TOP -> {
+                        repository.getTop(page)
+                    }
+                }
+            }.onSuccess {
+                when (it) {
+                    is GifItems -> {
+                        gifListLiveData.postValue(it)
+                        for (element in it.list)
+                            list.add(element!!)
+                        gifLiveData.postValue(list[index])
+                    }
+                    is GifItem -> {
+                        list.add(it)
+                        gifLiveData.postValue(it)
+                    }
+                }
+
+//                Log.d("adel", "${it}")
+
+            }.onFailure {
+//                Log.d("azamat", "${it}")
+                gifLiveData.postValue(default)
+
+            }
+//            if (result.isSuccess){
+//                result.getOrNull()?.let {
+//                    val mem = it.first()
+//                    list.add(mem!!)
+//                    Log.d("azamat", "${mem}")
+//                    if (mem.gifURL.isNotBlank()) {
+//                        gifLiveData.value = mem!!
 //                    }
 //                }
-            }.onSuccess {
-                gifLiveData.value = it
+//            }
+//            else
+//                Log.d("azamat", "${result}")
+//            }.onSuccess {
+//                val mem = it.first()
+//                    gifLiveData.postValue(mem!!)
+//                    list.add(gifLiveData.value!!)
+//                gifLiveData.value = it
 
 //                gifLiveData.postValue(it)
 //                gifListLiveData.postValue(it)
-                if (list.isEmpty()) {
-//                    addList(list, it)
-                    list.add(it)
-                    Log.d("azamat", "index = ${index}, desc = ${list[index].description}")
-                }
-            }.onFailure {
-                gifLiveData.postValue(default)
-                Log.d("asdasd", "345 ${it}")
-
-            }
+//                if (list.isEmpty()) {
+////                    addList(list, it)
+////                    list.add(it)
+//                    Log.d("azamat", "index = ${index}, desc = ${list[index].description}")
+//                }
+//            }.onFailure {
+//                gifLiveData.postValue(default)
+//                Log.d("asdasd", "345 ${it}")
+//
+//            }
         }
     }
 

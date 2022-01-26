@@ -5,16 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.example.developerslife.R
-import com.example.developerslife.databinding.ActivityMainBinding.inflate
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 
 import com.example.developerslife.databinding.FragmentMainBinding
 
@@ -26,14 +20,10 @@ import com.example.developerslife.databinding.FragmentMainBinding
  */
 class PlaceholderFragment : Fragment() {
 
-//    var myFragmentView = inflate(LayoutInflater.from(context))
     private lateinit var pageViewModel: PageViewModel
-    private var _binding: FragmentMainBinding? = null
-//    private val buttonPrev = myFragmentView.buttonActivityPrev
-//    private val buttonNext = myFragmentView.buttonActivityNext
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
+    private var _binding: FragmentMainBinding? = null
+
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -42,34 +32,23 @@ class PlaceholderFragment : Fragment() {
     ): View {
 
         _binding = FragmentMainBinding.inflate(inflater, container, false)
-        val root = binding.root
-
-//        val textView: TextView = binding.sectionLabel
-//        pageViewModel.text.observe(viewLifecycleOwner, Observer {
-//            textView.text = it
-//        })
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val tabs = arguments?.getSerializable(TABS_KEY) as Tabs
+        val tabs = arguments?.getSerializable(TABS_NAME) as Tabs
         pageViewModel = ViewModelProvider(this, PageViewModelFactory(tabs)).get(PageViewModel::class.java)
 
         pageViewModel.getGif()
-
-//        buttonPrev?.setOnClickListener { pageViewModel.prev() }
-//        buttonNext?.setOnClickListener { pageViewModel.next() }
 
         binding.buttonNext.setOnClickListener { pageViewModel.next() }
         binding.buttonPrev.setOnClickListener { pageViewModel.prev() }
         pageViewModel.gif.observe(viewLifecycleOwner, {
             binding.descriptionText.text = it.description
-//            Toast.makeText(context, it.gifURL, Toast.LENGTH_LONG).show()
             Glide.with(this)
                 .load(convertUrl(it.gifURL))
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)
-//                .placeholder(R.drawable.abc_vector_test)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(binding.gifImageView)
         })
 
@@ -80,26 +59,13 @@ class PlaceholderFragment : Fragment() {
     }
 
     companion object {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private const val ARG_SECTION_NUMBER = "section_number"
-        private const val TABS_KEY = "tabs"
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
+        private const val TABS_NAME = "tabs"
+
         @JvmStatic
         fun newInstance(tabs: Tabs): PlaceholderFragment {
-            val args = Bundle().apply { putSerializable(TABS_KEY, tabs) }
+            val args = Bundle().apply { putSerializable(TABS_NAME, tabs) }
             return PlaceholderFragment().apply { arguments = args }
-//            return PlaceholderFragment().apply {
-//                arguments = Bundle().apply {
-//                    putSerializable(TABS_KEY, tabs)
-//                }
-//            }
         }
     }
 
