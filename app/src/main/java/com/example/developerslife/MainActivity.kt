@@ -1,5 +1,6 @@
 package com.example.developerslife
 
+import android.location.GnssAntennaInfo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.developerslife.ui.main.SectionsPagerAdapter
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -32,5 +34,21 @@ class MainActivity : AppCompatActivity() {
         }.attach()
 
 
+//        binding.buttonActivityNext.setOnClickListener {
+//
+//        }
+//        binding.buttonActivityPrev.setOnClickListener {
+//            binding.viewPager.currentItem
+//        }
     }
+
+    fun prevListener() {
+//        return binding.buttonActivityPrev.setOnClickListener{}
+    }
+
+    fun nextListener() {
+//        return binding.buttonActivityNext.setOnClickListener {}
+    }
+
+
 }
