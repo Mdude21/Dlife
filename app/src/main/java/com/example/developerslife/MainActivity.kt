@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+//        setContentView(CustomView(this))
 
         pageAdapter = SectionsPagerAdapter(this)
         enumValues<Tabs>().forEach {

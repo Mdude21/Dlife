@@ -1,9 +1,16 @@
 package com.example.developerslife.ui.main
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.PorterDuff
 import android.location.GnssAntennaInfo
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -16,12 +23,6 @@ import com.example.developerslife.R
 
 import com.example.developerslife.databinding.FragmentMainBinding
 
-
-
-
-/**
- * A placeholder fragment containing a simple view.
- */
 class PlaceholderFragment : Fragment()  {
 
     private lateinit var pageViewModel: PageViewModel
@@ -29,8 +30,6 @@ class PlaceholderFragment : Fragment()  {
     private var _binding: FragmentMainBinding? = null
 
     private val binding get() = _binding!!
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,8 +63,16 @@ class PlaceholderFragment : Fragment()  {
 //            pageViewModel.prev()
 //        }
 
-        binding.buttonNext.setOnClickListener { pageViewModel.next() }
-        binding.buttonPrev.setOnClickListener { pageViewModel.prev() }
+        buttonEffect(binding.buttonNext)
+        buttonEffect(binding.buttonPrev)
+        binding.buttonNext.setOnClickListener {
+            vibratePhone()
+            pageViewModel.next()
+        }
+        binding.buttonPrev.setOnClickListener {
+            vibratePhone()
+            pageViewModel.prev()
+        }
         pageViewModel.gif.observe(viewLifecycleOwner, {
             binding.descriptionText.text = it.description
             Glide.with(this)
@@ -82,6 +89,32 @@ class PlaceholderFragment : Fragment()  {
 //        pageViewModel = ViewModelProvider(this, PageViewModelFactory(tabs)).get(PageViewModel::class.java)
 //        pageViewModel.next()
 //    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    fun buttonEffect(button: View) {
+        button.setOnTouchListener { v, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    v.background.setColorFilter(-0x1f0b8adf, PorterDuff.Mode.SRC_ATOP)
+                    v.invalidate()
+                }
+                MotionEvent.ACTION_UP -> {
+                    v.background.clearColorFilter()
+                    v.invalidate()
+                }
+            }
+            false
+        }
+    }
+
+    private fun Fragment.vibratePhone() {
+        val vibrator = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        if (Build.VERSION.SDK_INT >= 26) {
+            vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            vibrator.vibrate(200)
+        }
+    }
 
     private fun convertUrl(url : String) : String{
         return url.replace("http:", "https:")
