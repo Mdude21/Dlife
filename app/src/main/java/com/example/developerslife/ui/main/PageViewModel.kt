@@ -33,7 +33,10 @@ class PageViewModel(private val tabs: Tabs) : ViewModel() {
 
     private var index : Int = 0
 
+    private var getNewGifLiveData = MutableLiveData<Boolean>(true)
 
+    val getNewGif: LiveData<Boolean>
+    get() = getNewGifLiveData
 
     fun next() {
             if (error)
@@ -77,9 +80,11 @@ class PageViewModel(private val tabs: Tabs) : ViewModel() {
                         }
                     }
                 }.onSuccess {
+//                    getNewGifLiveData.value = false
                     when (it) {
                         is GifItems -> {
                             gifListLiveData.postValue(it)
+//                            list.addAll(it as Collection<GifItem>)
                             for (element in it.list)
                                 list.add(element!!)
                             gifLiveData.postValue(list[index])
@@ -89,13 +94,15 @@ class PageViewModel(private val tabs: Tabs) : ViewModel() {
                             gifLiveData.postValue(it)
                         }
                     }
+//                    getNewGifLiveData.value = true
 
                 }.onFailure {
                     error = false
                     gifLiveData.postValue(default)
-
+//                    getNewGifLiveData.value = true
                 }
             }
+
         }
     }
 }

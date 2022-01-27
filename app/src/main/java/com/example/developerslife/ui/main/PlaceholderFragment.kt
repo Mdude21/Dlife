@@ -45,6 +45,11 @@ class PlaceholderFragment : Fragment()  {
         val tabs = arguments?.getSerializable(TABS_NAME) as Tabs
         pageViewModel = ViewModelProvider(this, PageViewModelFactory(tabs)).get(PageViewModel::class.java)
 
+//        pageViewModel.getNewGif.observe(viewLifecycleOwner,{
+//            binding.buttonNext.isEnabled = it
+//            binding.buttonPrev.isEnabled = it
+//        })
+
         pageViewModel.getGif()
 
 //        val butNext = view.findViewById<Button>(R.id.buttonNext)
@@ -66,11 +71,11 @@ class PlaceholderFragment : Fragment()  {
         buttonEffect(binding.buttonNext)
         buttonEffect(binding.buttonPrev)
         binding.buttonNext.setOnClickListener {
-            vibratePhone()
+//            vibratePhone()
             pageViewModel.next()
         }
         binding.buttonPrev.setOnClickListener {
-            vibratePhone()
+//            vibratePhone()
             pageViewModel.prev()
         }
         pageViewModel.gif.observe(viewLifecycleOwner, {
@@ -107,14 +112,14 @@ class PlaceholderFragment : Fragment()  {
         }
     }
 
-    private fun Fragment.vibratePhone() {
-        val vibrator = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-        if (Build.VERSION.SDK_INT >= 26) {
-            vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
-        } else {
-            vibrator.vibrate(200)
-        }
-    }
+//    private fun Fragment.vibratePhone() {
+//        val vibrator = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+//        if (Build.VERSION.SDK_INT >= 26) {
+//            vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
+//        } else {
+//            vibrator.vibrate(200)
+//        }
+//    }
 
     private fun convertUrl(url : String) : String{
         return url.replace("http:", "https:")
