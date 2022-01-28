@@ -24,19 +24,21 @@ class PageViewModel(private val tabs: Tabs) : ViewModel() {
     val gif: LiveData<GifItem>
         get() = gifLiveData
 
-    private val gifListLiveData = MutableLiveData<GifItems>()
-
-    val gifList : LiveData<GifItems>
-        get() = gifListLiveData
-
     private var list = ArrayList<GifItem>()
 
-    private var index : Int = 0
+    private val isFirstLiveData = MutableLiveData<Boolean>(false)
 
-    private var getNewGifLiveData = MutableLiveData<Boolean>(true)
+    val isFirst: LiveData<Boolean>
+        get() = isFirstLiveData
 
-    val getNewGif: LiveData<Boolean>
-    get() = getNewGifLiveData
+    private var index = 0
+
+    fun isFirstIndex(){
+        if (index == 0)
+            isFirstLiveData.postValue(false)
+        else
+            isFirstLiveData.postValue(true)
+    }
 
     fun next() {
             if (error)
@@ -58,7 +60,8 @@ class PageViewModel(private val tabs: Tabs) : ViewModel() {
         error = true
         if (index > 0)
             index--
-        gifLiveData.postValue(list[index])
+        if (list.isNotEmpty())
+            gifLiveData.postValue(list[index])
     }
 
     fun getGif(){
@@ -69,22 +72,13 @@ class PageViewModel(private val tabs: Tabs) : ViewModel() {
             viewModelScope.launch {
                 runCatching {
                     when (tabs) {
-                        Tabs.RANDOM -> {
-                            repository.getRandom()
+                        Tabs.RANDOM -> repository.getRandom()
+                        Tabs.LATEST -> repository.getLatest(page)
+                        Tabs.TOP -> repository.getTop(page)
                         }
-                        Tabs.LATEST -> {
-                            repository.getLatest(page)
-                        }
-                        Tabs.TOP -> {
-                            repository.getTop(page)
-                        }
-                    }
                 }.onSuccess {
-//                    getNewGifLiveData.value = false
                     when (it) {
                         is GifItems -> {
-                            gifListLiveData.postValue(it)
-//                            list.addAll(it as Collection<GifItem>)
                             for (element in it.list)
                                 list.add(element!!)
                             gifLiveData.postValue(list[index])
@@ -94,15 +88,11 @@ class PageViewModel(private val tabs: Tabs) : ViewModel() {
                             gifLiveData.postValue(it)
                         }
                     }
-//                    getNewGifLiveData.value = true
-
                 }.onFailure {
                     error = false
                     gifLiveData.postValue(default)
-//                    getNewGifLiveData.value = true
                 }
             }
-
         }
     }
 }

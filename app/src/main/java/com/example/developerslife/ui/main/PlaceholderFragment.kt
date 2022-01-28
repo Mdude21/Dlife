@@ -3,6 +3,7 @@ package com.example.developerslife.ui.main
 import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.location.GnssAntennaInfo
 import android.os.Build
 import android.os.Bundle
@@ -16,12 +17,19 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.example.developerslife.MainActivity
 import com.example.developerslife.R
+import com.example.developerslife.R.color.red
 
 import com.example.developerslife.databinding.FragmentMainBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class PlaceholderFragment : Fragment()  {
 
@@ -70,22 +78,32 @@ class PlaceholderFragment : Fragment()  {
 
         buttonEffect(binding.buttonNext)
         buttonEffect(binding.buttonPrev)
-        binding.buttonNext.setOnClickListener {
-//            vibratePhone()
-            pageViewModel.next()
-        }
-        binding.buttonPrev.setOnClickListener {
-//            vibratePhone()
-            pageViewModel.prev()
-        }
+
+        binding.buttonNext.setOnClickListener { pageViewModel.next() }
+        binding.buttonPrev.setOnClickListener { pageViewModel.prev() }
+
+        pageViewModel.isFirst.observe(viewLifecycleOwner, {
+            pageViewModel.isFirstIndex()
+            binding.buttonPrev.isEnabled = it
+        })
+
         pageViewModel.gif.observe(viewLifecycleOwner, {
             binding.descriptionText.text = it.description
             Glide.with(this)
                 .load(convertUrl(it.gifURL))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(getCircularProgressDrawable())
                 .into(binding.gifImageView)
         })
 
+    }
+
+    private fun getCircularProgressDrawable() : CircularProgressDrawable  {
+        val circularProgressDrawable = CircularProgressDrawable(context?.applicationContext!!)
+        circularProgressDrawable.strokeWidth = STROKE_WIDTH
+        circularProgressDrawable.centerRadius = CENTER_RADIUS
+        circularProgressDrawable.start()
+        return circularProgressDrawable
     }
 
 
@@ -127,6 +145,8 @@ class PlaceholderFragment : Fragment()  {
 
     companion object {
 
+        private const val STROKE_WIDTH = 10f
+        private const val CENTER_RADIUS = 50f
         private const val TABS_NAME = "tabs"
 
         @JvmStatic
