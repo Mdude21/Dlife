@@ -2,9 +2,11 @@ package com.example.developerslife
 
 import android.location.GnssAntennaInfo
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.developerslife.ui.main.SectionsPagerAdapter
 import com.example.developerslife.databinding.ActivityMainBinding
+import com.example.developerslife.ui.main.OnSwipeTouchListener
 import com.example.developerslife.ui.main.PlaceholderFragment
 import com.example.developerslife.ui.main.Tabs
 import com.google.android.material.tabs.TabLayoutMediator
@@ -16,7 +18,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

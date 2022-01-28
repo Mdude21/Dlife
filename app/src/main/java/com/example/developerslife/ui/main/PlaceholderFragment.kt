@@ -2,6 +2,7 @@ package com.example.developerslife.ui.main
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.gesture.Gesture
 import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.location.GnssAntennaInfo
@@ -9,12 +10,10 @@ import android.os.Build
 import android.os.Bundle
 import android.os.VibrationEffect
 import android.os.Vibrator
+import android.view.*
 
-import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
@@ -35,6 +34,8 @@ class PlaceholderFragment : Fragment()  {
 
     private lateinit var pageViewModel: PageViewModel
 
+
+
     private var _binding: FragmentMainBinding? = null
 
     private val binding get() = _binding!!
@@ -50,6 +51,8 @@ class PlaceholderFragment : Fragment()  {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         val tabs = arguments?.getSerializable(TABS_NAME) as Tabs
         pageViewModel = ViewModelProvider(this, PageViewModelFactory(tabs)).get(PageViewModel::class.java)
 
@@ -166,4 +169,70 @@ class PlaceholderFragment : Fragment()  {
 //
 //        }
 //    }
+}
+
+open class OnSwipeTouchListener(ctx: Context) : View.OnTouchListener {
+
+    private val gestureDetector: GestureDetector
+
+    companion object {
+
+        private val SWIPE_THRESHOLD = 100
+        private val SWIPE_VELOCITY_THRESHOLD = 100
+    }
+
+    init {
+        gestureDetector = GestureDetector(ctx, GestureListener())
+    }
+
+    override fun onTouch(v: View, event: MotionEvent): Boolean {
+        return gestureDetector.onTouchEvent(event)
+    }
+
+    private inner class GestureListener : GestureDetector.SimpleOnGestureListener() {
+
+
+        override fun onDown(e: MotionEvent): Boolean {
+            return true
+        }
+
+        override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
+            var result = false
+            try {
+                val diffY = e2.y - e1.y
+                val diffX = e2.x - e1.x
+                if (Math.abs(diffX) > Math.abs(diffY)) {
+                    if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+                        if (diffX > 0) {
+                            onSwipeRight()
+                        } else {
+                            onSwipeLeft()
+                        }
+                        result = true
+                    }
+                } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
+                    if (diffY > 0) {
+                        onSwipeBottom()
+                    } else {
+                        onSwipeTop()
+                    }
+                    result = true
+                }
+            } catch (exception: Exception) {
+                exception.printStackTrace()
+            }
+
+            return result
+        }
+
+
+    }
+
+    open fun onSwipeRight() {}
+
+    open fun onSwipeLeft() {}
+
+    open fun onSwipeTop() {}
+
+    open fun onSwipeBottom() {}
 }
