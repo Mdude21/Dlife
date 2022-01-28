@@ -48,8 +48,10 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabSelectedTextColor="#6C6B6B"
-            app:tabTextColor="#A5A5A5" />
+            app:tabBackground="@drawable/tab_color_selection"
+            app:tabSelectedTextColor="@color/tab_text_select"
+            app:tabIndicatorColor="@color/tab_underline"
+            app:tabTextColor="@color/tab_text_unselect" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager2.widget.ViewPager2

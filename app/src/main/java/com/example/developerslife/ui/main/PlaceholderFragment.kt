@@ -76,8 +76,8 @@ class PlaceholderFragment : Fragment()  {
 //            pageViewModel.prev()
 //        }
 
-        buttonEffect(binding.buttonNext)
-        buttonEffect(binding.buttonPrev)
+//        buttonEffect(binding.buttonNext)
+//        buttonEffect(binding.buttonPrev)
 
         binding.buttonNext.setOnClickListener { pageViewModel.next() }
         binding.buttonPrev.setOnClickListener { pageViewModel.prev() }
