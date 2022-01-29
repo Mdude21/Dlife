@@ -49,6 +49,7 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:tabGravity="fill"
             app:tabBackground="@drawable/tab_color_selection"
             app:tabSelectedTextColor="@color/tab_text_select"
             app:tabIndicatorColor="@color/tab_underline"
