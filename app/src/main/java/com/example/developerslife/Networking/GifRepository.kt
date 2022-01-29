@@ -8,37 +8,6 @@ import java.lang.Exception
 
 class GifRepository {
 
-//    suspend fun getTop(page: Int) : Result<List<GifItem?>> = withContext(Dispatchers.IO) {
-//        try {
-//            val memes = Networking.developersLifeApi.getTop(page)
-//            Result.success(memes.list)
-//        } catch (exception : Exception) {
-//            Result.failure(exception)
-//        }
-//    }
-//
-//    suspend fun getHot(page: Int) : Result<List<GifItem?>> = withContext(Dispatchers.IO) {
-//        try {
-//            val memes = Networking.developersLifeApi.getHot(page)
-//            Result.success(memes.list)
-//        } catch (exception : Exception) {
-//            Result.failure(exception)
-//        }
-//    }
-//
-//    suspend fun getLatest(page: Int) : Result<List<GifItem?>> = withContext(Dispatchers.IO) {
-//        try {
-//            val memes = Networking.developersLifeApi.getLatest(page)
-//            Result.success(memes.list)
-//        } catch (exception : Exception) {
-//            Result.failure(exception)
-//        }
-//    }
-
-    suspend fun getHot(page: Int) : GifItems {
-        return Networking.developersLifeApi.getHot(page)
-    }
-
     suspend fun getLatest(page: Int) : GifItems {
         return Networking.developersLifeApi.getLatest(page)
     }

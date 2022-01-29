@@ -13,8 +13,8 @@ interface DevelopersLifeApi {
     @GET("top/{page}")
     suspend fun getTop(@Path("page") page: Int) : GifItems
 
-    @GET("hot/{page}")
-    suspend fun getHot(@Path("page") page: Int) : GifItems
+//    @GET("hot/{page}")
+//    suspend fun getHot(@Path("page") page: Int) : GifItems
 
     @GET("random")
     suspend fun getRandom() : GifItem

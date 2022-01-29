@@ -5,6 +5,7 @@ import com.example.developerslife.Networking.GifRepository
 import com.example.developerslife.Networking.models.GifItem
 import com.example.developerslife.Networking.models.GifItems
 import com.example.developerslife.R
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlin.collections.ArrayList
 
@@ -24,7 +25,7 @@ class PageViewModel(private val tabs: Tabs) : ViewModel() {
     val gif: LiveData<GifItem>
         get() = gifLiveData
 
-    private var list = ArrayList<GifItem>()
+    private var list = mutableListOf<GifItem>()
 
     private val isFirstLiveData = MutableLiveData<Boolean>(false)
 
@@ -32,6 +33,8 @@ class PageViewModel(private val tabs: Tabs) : ViewModel() {
         get() = isFirstLiveData
 
     private var index = 0
+
+    private var isFinish = true
 
     fun isFirstIndex(){
         if (index == 0)
@@ -41,19 +44,19 @@ class PageViewModel(private val tabs: Tabs) : ViewModel() {
     }
 
     fun next() {
+        if (isFinish) {
             if (error)
                 index++
-            if (index == list.size){
-                when (tabs){
+            if (index == list.size) {
+                when (tabs) {
                     Tabs.RANDOM -> {}
                     Tabs.LATEST -> page++
                     Tabs.TOP -> page++
                 }
                 getGif()
-            }
-            else{
+            } else
                 gifLiveData.postValue(list[index])
-            }
+        }
     }
 
     fun prev() {
@@ -66,10 +69,11 @@ class PageViewModel(private val tabs: Tabs) : ViewModel() {
 
     fun getGif(){
         error = true
+        isFinish = false
         if (index != list.size)
             gifLiveData.postValue(list[index])
         else {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 runCatching {
                     when (tabs) {
                         Tabs.RANDOM -> repository.getRandom()
@@ -80,7 +84,7 @@ class PageViewModel(private val tabs: Tabs) : ViewModel() {
                     when (it) {
                         is GifItems -> {
                             for (element in it.list)
-                                list.add(element!!)
+                                list.add(element)
                             gifLiveData.postValue(list[index])
                         }
                         is GifItem -> {
@@ -88,9 +92,11 @@ class PageViewModel(private val tabs: Tabs) : ViewModel() {
                             gifLiveData.postValue(it)
                         }
                     }
+                    isFinish = true
                 }.onFailure {
                     error = false
                     gifLiveData.postValue(default)
+                    isFinish = true
                 }
             }
         }

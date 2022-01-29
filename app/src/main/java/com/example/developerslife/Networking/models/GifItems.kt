@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class GifItems(
     @SerialName("result")
-    val list: List<GifItem?>
+    val list: List<GifItem>
 )
