@@ -70,8 +70,10 @@ class PageViewModel(private val tabs: Tabs) : ViewModel() {
     fun getGif(){
         error = true
         isFinish = false
-        if (index != list.size)
+        if (index != list.size) {
             gifLiveData.postValue(list[index])
+            isFinish = true
+        }
         else {
             viewModelScope.launch(Dispatchers.IO) {
                 runCatching {

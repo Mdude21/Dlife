@@ -9,32 +9,33 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/main"
     tools:context=".MainActivity">
 
 <!--    <Button-->
 <!--        android:id="@+id/buttonActivityPrev"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/back"-->
+<!--        android:background="@drawable/custom_button_prev"-->
 <!--        app:layout_constraintEnd_toEndOf="parent"-->
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="parent"-->
 <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        android:layout_marginTop="540dp"-->
-<!--        app:layout_constraintHorizontal_bias="0.240"/>-->
+<!--        android:layout_marginTop="150dp"-->
+<!--        app:layout_constraintHorizontal_bias="0.140"/>-->
 
 
 <!--    <Button-->
 <!--        android:id="@+id/buttonActivityNext"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/next"-->
+<!--        android:background="@drawable/custom_button_next"-->
 <!--        app:layout_constraintEnd_toEndOf="parent"-->
 <!--        app:layout_constraintStart_toStartOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="parent"-->
 <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        android:layout_marginTop="540dp"-->
-<!--        app:layout_constraintHorizontal_bias="0.760"/>-->
+<!--        android:layout_marginTop="150dp"-->
+<!--        app:layout_constraintHorizontal_bias="0.860"/>-->
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -48,8 +49,10 @@
             android:id="@+id/tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabSelectedTextColor="#6C6B6B"
-            app:tabTextColor="#A5A5A5" />
+            app:tabBackground="@drawable/tab_color_selection"
+            app:tabSelectedTextColor="@color/tab_text_select"
+            app:tabIndicatorColor="@color/tab_underline"
+            app:tabTextColor="@color/tab_text_unselect" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.viewpager2.widget.ViewPager2

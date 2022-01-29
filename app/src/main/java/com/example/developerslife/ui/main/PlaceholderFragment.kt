@@ -56,38 +56,17 @@ class PlaceholderFragment : Fragment(), ButtonClickListener  {
         val tabs = arguments?.getSerializable(TABS_NAME) as Tabs
         pageViewModel = ViewModelProvider(this, PageViewModelFactory(tabs)).get(PageViewModel::class.java)
 
-//        pageViewModel.getNewGif.observe(viewLifecycleOwner,{
-//            binding.buttonNext.isEnabled = it
-//            binding.buttonPrev.isEnabled = it
-//        })
-
         pageViewModel.getGif()
 
-//        val butNext = view.findViewById<Button>(R.id.buttonNext)
-//        butNext.setOnClickListener(View.OnClickListener {
-//            fun onClick(view: View){
-//                activity?.findViewById<Button>(R.id.buttonActivityNext)?.setOnClickListener {
-//                    pageViewModel.next()
-//                }
-//            }
-//        })
-//        activity?.findViewById<Button>(R.id.buttonActivityNext)?.setOnClickListener {
-//            pageViewModel.next()
-//        }
-//
-//        activity?.findViewById<Button>(R.id.buttonActivityPrev)?.setOnClickListener {
-//            pageViewModel.prev()
-//        }
 
-//        buttonEffect(binding.buttonNext)
-//        buttonEffect(binding.buttonPrev)
 
-//        binding.buttonNext.setOnClickListener { pageViewModel.next() }
-//        binding.buttonPrev.setOnClickListener { pageViewModel.prev() }
+        binding.buttonNext?.setOnClickListener { pageViewModel.next() }
+        binding.buttonPrev?.setOnClickListener { pageViewModel.prev() }
+
 
         pageViewModel.isFirst.observe(viewLifecycleOwner, {
             pageViewModel.isFirstIndex()
-//            binding.buttonPrev.isEnabled = it
+            binding.buttonPrev?.isEnabled = it
         })
 
         pageViewModel.gif.observe(viewLifecycleOwner, {
@@ -108,39 +87,6 @@ class PlaceholderFragment : Fragment(), ButtonClickListener  {
         circularProgressDrawable.start()
         return circularProgressDrawable
     }
-
-
-//    fun onClick(p0: View?) {
-//        val tabs = arguments?.getSerializable(TABS_NAME) as Tabs
-//        pageViewModel = ViewModelProvider(this, PageViewModelFactory(tabs)).get(PageViewModel::class.java)
-//        pageViewModel.next()
-//    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    fun buttonEffect(button: View) {
-        button.setOnTouchListener { v, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    v.background.setColorFilter(-0x1f0b8adf, PorterDuff.Mode.SRC_ATOP)
-                    v.invalidate()
-                }
-                MotionEvent.ACTION_UP -> {
-                    v.background.clearColorFilter()
-                    v.invalidate()
-                }
-            }
-            false
-        }
-    }
-
-//    private fun Fragment.vibratePhone() {
-//        val vibrator = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-//        if (Build.VERSION.SDK_INT >= 26) {
-//            vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
-//        } else {
-//            vibrator.vibrate(200)
-//        }
-//    }
 
     private fun convertUrl(url : String) : String{
         return url.replace("http:", "https:")
@@ -164,83 +110,14 @@ class PlaceholderFragment : Fragment(), ButtonClickListener  {
         _binding = null
     }
 
-    override fun prev() {
-        pageViewModel.prev()
+    override fun isFirst() : Boolean {
+        return pageViewModel.isFirst.value!!
+
     }
 
-    override fun next() {
-        pageViewModel.next()
-    }
+    override fun prev() { pageViewModel.prev() }
 
-//    public class MyListener(viewModel: PageViewModel) : View.OnClickListener {
-//        override fun onClick(p0: View?) {
-//
-//        }
-//    }
+    override fun next() { pageViewModel.next() }
+
 }
 
-open class OnSwipeTouchListener(ctx: Context) : View.OnTouchListener {
-
-    private val gestureDetector: GestureDetector
-
-    companion object {
-
-        private val SWIPE_THRESHOLD = 100
-        private val SWIPE_VELOCITY_THRESHOLD = 100
-    }
-
-    init {
-        gestureDetector = GestureDetector(ctx, GestureListener())
-    }
-
-    override fun onTouch(v: View, event: MotionEvent): Boolean {
-        return gestureDetector.onTouchEvent(event)
-    }
-
-    private inner class GestureListener : GestureDetector.SimpleOnGestureListener() {
-
-
-        override fun onDown(e: MotionEvent): Boolean {
-            return true
-        }
-
-        override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-            var result = false
-            try {
-                val diffY = e2.y - e1.y
-                val diffX = e2.x - e1.x
-                if (Math.abs(diffX) > Math.abs(diffY)) {
-                    if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
-                        if (diffX > 0) {
-                            onSwipeRight()
-                        } else {
-                            onSwipeLeft()
-                        }
-                        result = true
-                    }
-                } else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
-                    if (diffY > 0) {
-                        onSwipeBottom()
-                    } else {
-                        onSwipeTop()
-                    }
-                    result = true
-                }
-            } catch (exception: Exception) {
-                exception.printStackTrace()
-            }
-
-            return result
-        }
-
-
-    }
-
-    open fun onSwipeRight() {}
-
-    open fun onSwipeLeft() {}
-
-    open fun onSwipeTop() {}
-
-    open fun onSwipeBottom() {}
-}

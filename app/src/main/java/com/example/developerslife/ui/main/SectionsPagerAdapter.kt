@@ -25,4 +25,8 @@ class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(a
     fun getTabs(): List<String> {
         return tabs
     }
+
+    fun getFragment(position: Int) : Fragment {
+        return fragments[position]
+    }
 }
