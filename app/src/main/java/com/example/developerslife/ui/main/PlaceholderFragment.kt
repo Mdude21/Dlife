@@ -30,7 +30,7 @@ import com.example.developerslife.databinding.FragmentMainBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class PlaceholderFragment : Fragment()  {
+class PlaceholderFragment : Fragment(), ButtonClickListener  {
 
     private lateinit var pageViewModel: PageViewModel
 
@@ -82,12 +82,12 @@ class PlaceholderFragment : Fragment()  {
 //        buttonEffect(binding.buttonNext)
 //        buttonEffect(binding.buttonPrev)
 
-        binding.buttonNext.setOnClickListener { pageViewModel.next() }
-        binding.buttonPrev.setOnClickListener { pageViewModel.prev() }
+//        binding.buttonNext.setOnClickListener { pageViewModel.next() }
+//        binding.buttonPrev.setOnClickListener { pageViewModel.prev() }
 
         pageViewModel.isFirst.observe(viewLifecycleOwner, {
             pageViewModel.isFirstIndex()
-            binding.buttonPrev.isEnabled = it
+//            binding.buttonPrev.isEnabled = it
         })
 
         pageViewModel.gif.observe(viewLifecycleOwner, {
@@ -162,6 +162,14 @@ class PlaceholderFragment : Fragment()  {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun prev() {
+        pageViewModel.prev()
+    }
+
+    override fun next() {
+        pageViewModel.next()
     }
 
 //    public class MyListener(viewModel: PageViewModel) : View.OnClickListener {
