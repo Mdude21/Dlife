@@ -3,4 +3,8 @@
     <item android:drawable="@drawable/back_deactive" android:state_enabled="false"/>
     <item android:drawable="@drawable/back_select" android:state_pressed="true"/>
     <item android:drawable="@drawable/back_unselect" android:state_pressed="false"/>
+    -----night_button
+    <item android:drawable="@drawable/night_back_deactive" android:state_enabled="false"/>
+    <item android:drawable="@drawable/night_back_select" android:state_pressed="true"/>
+    <item android:drawable="@drawable/night_back_unselect" android:state_pressed="false"/>
 </selector>
