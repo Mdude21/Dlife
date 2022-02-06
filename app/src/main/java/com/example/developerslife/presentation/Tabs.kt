@@ -1,7 +1,6 @@
-package com.example.developerslife.ui.main
+package com.example.developerslife.presentation
 
 enum class Tabs(val tab: String) {
-//    HOT("Hot"),
     RANDOM("Random"),
     TOP("Top"),
     LATEST("Latest")

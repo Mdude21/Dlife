@@ -1,5 +1,6 @@
-package com.example.developerslife.Networking
+package com.example.developerslife.data
 
+import com.example.developerslife.BuildConfig
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -11,8 +12,9 @@ object Networking {
 
     private val okHttpClient = OkHttpClient()
         .newBuilder()
-        .addInterceptor(HttpLoggingInterceptor()
-            .setLevel(HttpLoggingInterceptor.Level.BODY)
+        .addInterceptor(
+            HttpLoggingInterceptor()
+                .setLevel(HttpLoggingInterceptor.Level.BODY)
         )
         .addInterceptor {
             val request = it.request()
@@ -21,17 +23,16 @@ object Networking {
         }
         .build()
 
-
     private val contentType = "application/json".toMediaType()
 
     private val json = Json { ignoreUnknownKeys = true }
 
     private val retrofit = Retrofit.Builder()
         .client(okHttpClient)
-        .baseUrl("https://developerslife.ru/")
+        .baseUrl(BuildConfig.BASE_URL)
         .addConverterFactory(json.asConverterFactory(contentType))
         .build()
 
-   val developersLifeApi : DevelopersLifeApi
+    val developersLifeApi: DevelopersLifeApi
         get() = retrofit.create(DevelopersLifeApi::class.java)
 }

@@ -4,9 +4,9 @@
       <root url="jar:///goinfre/mdude/.gradle/caches/transforms-3/c6a9b40d73c447e986f79fb3a4b246ec/transformed/cardview-1.0.0/jars/classes.jar!/" />
       <root url="file:///goinfre/mdude/.gradle/caches/transforms-3/c6a9b40d73c447e986f79fb3a4b246ec/transformed/cardview-1.0.0/res" />
       <root url="file:///goinfre/mdude/.gradle/caches/transforms-3/c6a9b40d73c447e986f79fb3a4b246ec/transformed/cardview-1.0.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c6a9b40d73c447e986f79fb3a4b246ec/transformed/cardview-1.0.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/c6a9b40d73c447e986f79fb3a4b246ec/transformed/cardview-1.0.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c6a9b40d73c447e986f79fb3a4b246ec/transformed/cardview-1.0.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0c128581f7ee9afb8a525cb9fd585bb5/transformed/cardview-1.0.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/0c128581f7ee9afb8a525cb9fd585bb5/transformed/cardview-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/0c128581f7ee9afb8a525cb9fd585bb5/transformed/cardview-1.0.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

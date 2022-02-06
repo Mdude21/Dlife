@@ -1,26 +1,26 @@
-package com.example.developerslife.ui.main
+package com.example.developerslife.presentation.viewmodels
 
 import androidx.lifecycle.*
-import com.example.developerslife.Networking.GifRepository
-import com.example.developerslife.Networking.models.GifItem
-import com.example.developerslife.Networking.models.GifItems
+import com.example.developerslife.data.GifRepository
+import com.example.developerslife.data.models.GifItem
+import com.example.developerslife.data.models.GifItems
 import com.example.developerslife.R
+import com.example.developerslife.presentation.Tabs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlin.collections.ArrayList
 
 class PageViewModel(private val tabs: Tabs) : ViewModel() {
 
     private var page = 0
 
-    private var error : Boolean = true
+    private var error: Boolean = true
 
     private val repository = GifRepository()
 
 
-    private var default = GifItem(0, R.drawable.abc_vector_test.toString(), "Sorry, undefined error. Please try again")
+    private var default = GifItem(0, R.drawable.abc_vector_test.toString(), DEFAULT_ERROR)
 
-    private val gifLiveData  = MutableLiveData<GifItem>()
+    private val gifLiveData = MutableLiveData<GifItem>()
 
     val gif: LiveData<GifItem>
         get() = gifLiveData
@@ -36,11 +36,8 @@ class PageViewModel(private val tabs: Tabs) : ViewModel() {
 
     private var isFinish = true
 
-    fun isFirstIndex(){
-        if (index == 0)
-            isFirstLiveData.postValue(false)
-        else
-            isFirstLiveData.postValue(true)
+    fun isFirstIndex() {
+        isFirstLiveData.postValue(index != 0)
     }
 
     fun next() {
@@ -67,21 +64,20 @@ class PageViewModel(private val tabs: Tabs) : ViewModel() {
             gifLiveData.postValue(list[index])
     }
 
-    fun getGif(){
+    fun getGif() {
         error = true
         isFinish = false
         if (index != list.size) {
             gifLiveData.postValue(list[index])
             isFinish = true
-        }
-        else {
+        } else {
             viewModelScope.launch(Dispatchers.IO) {
                 runCatching {
                     when (tabs) {
                         Tabs.RANDOM -> repository.getRandom()
                         Tabs.LATEST -> repository.getLatest(page)
                         Tabs.TOP -> repository.getTop(page)
-                        }
+                    }
                 }.onSuccess {
                     when (it) {
                         is GifItems -> {
@@ -102,5 +98,9 @@ class PageViewModel(private val tabs: Tabs) : ViewModel() {
                 }
             }
         }
+    }
+
+    companion object {
+        private const val DEFAULT_ERROR = "Sorry, undefined error. Please try again"
     }
 }

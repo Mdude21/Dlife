@@ -2,15 +2,15 @@
   <library name="Gradle: androidx.swiperefreshlayout:swiperefreshlayout:1.1.0@aar">
     <ANNOTATIONS>
       <root url="jar:///goinfre/mdude/.gradle/caches/transforms-3/d4d4720cddb89e4b50021aff7dfaf54d/transformed/swiperefreshlayout-1.1.0/annotations.zip!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/d4d4720cddb89e4b50021aff7dfaf54d/transformed/swiperefreshlayout-1.1.0/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/fabf557b372d666b78e9ebff8ef3723c/transformed/swiperefreshlayout-1.1.0/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
       <root url="jar:///goinfre/mdude/.gradle/caches/transforms-3/d4d4720cddb89e4b50021aff7dfaf54d/transformed/swiperefreshlayout-1.1.0/jars/classes.jar!/" />
       <root url="file:///goinfre/mdude/.gradle/caches/transforms-3/d4d4720cddb89e4b50021aff7dfaf54d/transformed/swiperefreshlayout-1.1.0/res" />
       <root url="file:///goinfre/mdude/.gradle/caches/transforms-3/d4d4720cddb89e4b50021aff7dfaf54d/transformed/swiperefreshlayout-1.1.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d4d4720cddb89e4b50021aff7dfaf54d/transformed/swiperefreshlayout-1.1.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d4d4720cddb89e4b50021aff7dfaf54d/transformed/swiperefreshlayout-1.1.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/d4d4720cddb89e4b50021aff7dfaf54d/transformed/swiperefreshlayout-1.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/fabf557b372d666b78e9ebff8ef3723c/transformed/swiperefreshlayout-1.1.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/fabf557b372d666b78e9ebff8ef3723c/transformed/swiperefreshlayout-1.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/fabf557b372d666b78e9ebff8ef3723c/transformed/swiperefreshlayout-1.1.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

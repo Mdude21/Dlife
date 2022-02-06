@@ -1,4 +1,4 @@
-package com.example.developerslife.Networking.models
+package com.example.developerslife.data.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

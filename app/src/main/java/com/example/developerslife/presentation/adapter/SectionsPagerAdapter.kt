@@ -1,17 +1,16 @@
-package com.example.developerslife.ui.main
+package com.example.developerslife.presentation.adapter
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity){
-    val fragments = mutableListOf<Fragment>()
+    private val fragments = mutableListOf<Fragment>()
     private val tabs = mutableListOf<String>()
 
     override fun getItemCount(): Int {
         return fragments.size
     }
-
 
     override fun createFragment(position: Int): Fragment {
         return fragments[position]
@@ -24,9 +23,5 @@ class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(a
 
     fun getTabs(): List<String> {
         return tabs
-    }
-
-    fun getFragment(position: Int) : Fragment {
-        return fragments[position]
     }
 }

@@ -1,7 +1,8 @@
-package com.example.developerslife.ui.main
+package com.example.developerslife.presentation.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.developerslife.presentation.Tabs
 
 class PageViewModelFactory(private val tabs: Tabs) : ViewModelProvider.NewInstanceFactory() {
     @Suppress("UNCHECKED_CAST")

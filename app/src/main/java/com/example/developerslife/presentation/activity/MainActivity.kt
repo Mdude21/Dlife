@@ -1,9 +1,11 @@
-package com.example.developerslife
+package com.example.developerslife.presentation.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.developerslife.databinding.ActivityMainBinding
-import com.example.developerslife.ui.main.*
+import com.example.developerslife.presentation.fragments.PlaceholderFragment
+import com.example.developerslife.presentation.adapter.SectionsPagerAdapter
+import com.example.developerslife.presentation.Tabs
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainActivity : AppCompatActivity() {
@@ -16,20 +18,6 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        with(binding) {
-//            buttonActivityNext.setOnClickListener {
-//                pageAdapter.fragments.forEach {
-//                    if (it.isVisible)
-//                            (it as ButtonClickListener).next()
-//                }
-//            }
-//            buttonActivityPrev.setOnClickListener {
-//                pageAdapter.fragments.forEach {
-//                    if (it.isVisible)
-//                            (it as ButtonClickListener).prev()
-//                }
-//            }
-//        }
 
         pageAdapter = SectionsPagerAdapter(this)
         enumValues<Tabs>().forEach {
@@ -40,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.viewPager.adapter = pageAdapter
-        TabLayoutMediator(binding.tabs, binding.viewPager) {tab, position ->
+        TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
             tab.text = pageAdapter.getTabs()[position]
         }.attach()
 

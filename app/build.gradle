@@ -15,6 +15,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "BASE_URL", '"https://developerslife.ru/"'
     }
 
     buildTypes {
@@ -34,7 +35,6 @@ android {
         viewBinding true
     }
 
-    apply plugin: 'kotlin-kapt'
 }
 
 dependencies {

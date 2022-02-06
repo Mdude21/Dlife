@@ -1,4 +1,4 @@
-package com.example.developerslife.Networking.models
+package com.example.developerslife.data.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -10,7 +10,7 @@ data class GifItem(
     val id: Int,
 
     @SerialName("gifURL")
-    val gifURL : String,
+    val gifURL: String,
 
     @SerialName("description")
     val description: String
