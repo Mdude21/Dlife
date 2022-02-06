@@ -15,4 +15,11 @@
     <color name="tab_background_select">#F4F5FF</color>
     <color name="tab_background">#ECEEFB</color>
     <color name="tab_underline">#999CAB</color>
+    ------night_colors
+    <color name="night_background">#312D2D</color>
+    <color name="night_tab_text_unselect">#888A93</color>
+    <color name="night_tab_text_select">#CFD4E4</color>
+    <color name="night_tab_background_unselect">#434449</color>
+    <color name="night_tab_background_select">#595A60</color>
+    <color name="night_tab_underline">#7E808B</color>
 </resources>
