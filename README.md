@@ -14,7 +14,6 @@
 
 --**OkHTTP**
 
-![Screenshot_20220212_214536](https://user-images.githubusercontent.com/62237984/153746777-6ea4a4f5-bbcc-4dc7-ab9f-2f7265f8ee00.png)
-![Screenshot_20220212_214628](https://user-images.githubusercontent.com/62237984/153746781-7bf76b43-cf7e-4a6e-8703-ea60b4a1054b.png)
-![Screenshot_20220212_214729](https://user-images.githubusercontent.com/62237984/153746782-db001c6f-f278-4443-9b52-07a4a665c2b4.png)
-![Screenshot_20220212_214807](https://user-images.githubusercontent.com/62237984/153746787-ab2dfd34-3c5f-48c4-a2b1-303ece46bb8f.png)
+
+![imgonline-com-ua-Resize-215RtP1e5Epa3gU](https://user-images.githubusercontent.com/62237984/153747042-5ff91046-7be4-4154-a3c6-1eec1b67f8e6.png) ![imgonline-com-ua-Resize-ulodV3T2EYd7AxN](https://user-images.githubusercontent.com/62237984/153747124-d8faf836-55a7-45a3-a8e6-f2fccae8dadb.png)
+![imgonline-com-ua-Resize-x72CpCjzMecWwF](https://user-images.githubusercontent.com/62237984/153747122-f6a3f391-14db-4a1b-b60e-e48df0994a9a.png)
