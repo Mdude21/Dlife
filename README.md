@@ -1,6 +1,8 @@
 # Developers Life
 Мобильная версия сайта https://developerslife.ru/
 
+Ссылка на Play Market https://play.google.com/store/apps/details?id=dl.aa.developerslife
+
 # Используемые технологии:
 --**ViewModel**
 
